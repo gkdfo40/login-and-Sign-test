@@ -11,12 +11,12 @@ export default async function handler(req, res) {
             try {
                 const user = await User.findOne(req.body);
                 if (!user) {
-                    res.status(400).json({ success: false })
+                    res.status(400).end()
                 }
-                else res.status(201).json({ success: true, data: user })
+                else res.status(201).end()
             } catch (error) {
                 console.log("dddd", error.message)
-                res.status(400).json({ success: false })
+                res.status(400).end()
             }
             break
     }
