@@ -4,6 +4,7 @@ import { useState } from "react"
 import styles from '../styles/login.module.css'
 
 export default function Login() {
+    const contentType = 'application/json'
     const router = useRouter()
     const [data, setData] = useState({
         username: '',
@@ -20,13 +21,32 @@ export default function Login() {
     }
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(data)
-        router.push("/")
+        postData(data)
+    }
+
+    const postData = async (data) => {
+        try {
+            const res = await fetch('/api/users/loginapi', {
+                method: 'POST',
+                headers: {
+                    Accept: contentType,
+                    'Content-Type': contentType,
+                },
+                body: JSON.stringify(data),
+            })
+            if (!res.ok) {
+                throw new Error(res.status)
+            }
+            router.push('/')
+        } catch (error) {
+            alert(error.message)
+        }
     }
     return (
-        <div>
-            <Link href="/"><a>NOO NOO</a></Link>
+        <div className={styles.container}>
+
             <div className={styles.form}>
+                <Link href="/"><a>NOO NOO</a></Link>
                 <form onSubmit={handleSubmit}>
                     <input
                         placeholder="아이디"
