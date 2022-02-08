@@ -24,7 +24,6 @@ export default function Sign() {
         e.preventDefault()
         const ok = formValidata()
         if (ok) {
-            console.log(data)
             postData(data)
         }
         else alert("비밀번호가 일치하지 않습니다.")
@@ -37,12 +36,12 @@ export default function Sign() {
 
     const postData = async (data) => {
         try {
-            const res = await fetch('/api/users', {
+            const res = await fetch('/api/users/signapi', {
                 method: 'POST',
-                // headers: {
-                //     Accept: contentType,
-                //     'Content-Type': contentType,
-                // },
+                headers: {
+                    Accept: contentType,
+                    'Content-Type': contentType,
+                },
                 body: JSON.stringify(data),
             })
             if (!res.ok) {
